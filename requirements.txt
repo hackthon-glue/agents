@@ -1,0 +1,17 @@
+# AWS SDK
+boto3>=1.34.0
+python-dotenv>=1.0.0
+
+# PostgreSQL
+psycopg2-binary>=2.9.0
+
+# Strands Agents and Bedrock AgentCore
+strands-agents==1.6.0
+strands-agents-tools==0.2.5
+bedrock-agentcore==0.1.2
+
+# Browser automation (for data collection)
+playwright>=1.40.0
+
+# Package manager
+uv==0.8.13

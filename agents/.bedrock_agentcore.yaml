@@ -1,0 +1,30 @@
+default_agent: panel_discussion_agent
+agents:
+  panel_discussion_agent:
+    name: panel_discussion_agent
+    entrypoint: main.py
+    platform: linux/arm64
+    container_runtime: docker
+    aws:
+      execution_role: arn:aws:iam::023487747239:role/AmazonBedrockAgentCoreSDKRuntime-us-west-2-20be6086cc
+      execution_role_auto_create: true
+      account: 023487747239
+      region: us-west-2
+      ecr_repository: 023487747239.dkr.ecr.us-west-2.amazonaws.com/bedrock-agentcore-panel_discussion_agent
+      ecr_auto_create: true
+      network_configuration:
+        network_mode: PUBLIC
+      protocol_configuration:
+        server_protocol: HTTP
+      observability:
+        enabled: true
+    bedrock_agentcore:
+      agent_id: null
+      agent_arn: null
+      agent_session_id: null
+    codebuild:
+      project_name: bedrock-agentcore-panel_discussion_agent-builder
+      execution_role: arn:aws:iam::023487747239:role/AmazonBedrockAgentCoreSDKCodeBuild-us-west-2-20be6086cc
+      source_bucket: bedrock-agentcore-codebuild-sources-023487747239-us-west-2
+    authorizer_configuration: null
+    oauth_configuration: null
