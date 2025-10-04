@@ -142,48 +142,6 @@ IMPORTANT: Return ONLY the JSON array, no other text."""
             print(f"⚠️  JSON parse error: {e}")
             return []
 
-    def _get_mock_news(self, country_code: str, max_results: int) -> List[Dict]:
-        """Generate mock news data for testing"""
-        mock_articles = {
-            'jp': [
-                {
-                    'title': 'Japan\'s economy shows steady growth in Q4',
-                    'description': 'Economic indicators point to continued recovery',
-                    'source': 'Japan Times',
-                    'sentiment': 0.3
-                },
-                {
-                    'title': 'New tech startups receive record funding in Tokyo',
-                    'description': 'Investment in innovation reaches new heights',
-                    'source': 'Nikkei Asia',
-                    'sentiment': 0.4
-                }
-            ],
-            'us': [
-                {
-                    'title': 'Stock market reaches new record high',
-                    'description': 'Tech sector leads gains',
-                    'source': 'Reuters',
-                    'sentiment': 0.5
-                }
-            ]
-        }
-
-        articles = mock_articles.get(country_code.lower(), [
-            {
-                'title': f'Latest news from {country_code.upper()}',
-                'description': 'Mixed developments',
-                'source': 'International Press',
-                'sentiment': 0.0
-            }
-        ])
-
-        for article in articles:
-            article['published_at'] = datetime.now().isoformat()
-            article['url'] = 'https://example.com/news'
-
-        return articles[:max_results]
-
 
 class BrowserWeatherCollector:
     """Collect weather using AgentCore Browser"""
@@ -348,28 +306,6 @@ IMPORTANT: Return ONLY the JSON object, no other text."""
             score -= 0.1
 
         return max(-1.0, min(1.0, score))
-
-    def _get_mock_weather(self, country_code: str, city: Optional[str]) -> Dict:
-        """Generate mock weather data for testing"""
-        mock_weather = {
-            'jp': {'temp': 18, 'description': 'Partly Cloudy'},
-            'us': {'temp': 22, 'description': 'Clear Sky'}
-        }
-
-        default_weather = {'temp': 20, 'description': 'Partly Cloudy'}
-        base = mock_weather.get(country_code.lower(), default_weather)
-
-        return {
-            'city': city or 'Unknown',
-            'country': country_code.upper(),
-            'temp': base['temp'],
-            'feels_like': base['temp'] - 1,
-            'description': base['description'],
-            'humidity': 65,
-            'wind_speed': 12,
-            'timestamp': datetime.now().isoformat(),
-            'mood_impact': self._estimate_mood_impact(base['temp'], base['description'])
-        }
 
 
 class BrowserDataCollectionService:
